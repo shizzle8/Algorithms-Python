@@ -1,4 +1,5 @@
 import sys
+import math
 class Category:
 
 
@@ -30,7 +31,7 @@ class Category:
     total=0
     for i in range(len(self.ledger)):
       total+=float(self.ledger[i]['amount'])
-      print(type(total))
+    
     return float(total)
   
   def transfer(self,amount,budget):
@@ -61,11 +62,11 @@ class Category:
       
       if(len(str(self.ledger[x]['amount']).split('.')[1])==1):
         bottomline=  appening(' ', len(topline)-len(str(self.ledger[x]['amount'])+'0')-1) + str(self.ledger[x]['amount'])+'0'
-        print(bottomline,'lololololol')
+       
         length1=len(appening(' ', len(topline)-len(str(self.ledger[x]['amount'])+'0')-1))
       else:
         bottomline=  appening(' ', len(topline)-len(str(self.ledger[x]['amount']))-1) + str(self.ledger[x]['amount'])
-        print(bottomline,'lololololol')
+        
         length1=len(appening(' ', len(topline)-len(str(self.ledger[x]['amount']))-1))
         #print(bottomline[26],'asfasfsf')
       for i in range(length1-1):
@@ -92,9 +93,7 @@ class Category:
       #print(bottomline1,'lol')
       bottomline1+="\n"
     #print(bottomline, 'lololol')
-    print(type(self.get_balance()))
-    print(str(self.get_balance()))
-    print(str(self.get_balance()).split('.')[1],'lololol')
+   
     if(len(str(self.get_balance()).split('.')[1])==1):
       return topline+ bottomline1  + "Total: " + str(self.get_balance()) + '0'
     else: return topline+ bottomline1  + "Total: " + str(self.get_balance()) 
@@ -107,6 +106,7 @@ def create_spend_chart(listOfCategories):
   biggestlength=(sys.maxsize*-1)
   x=0
   y=0
+  t=0
  # print(len(listOfCategories))
   for i in range(len(listOfCategories)):
     name.append(listOfCategories[i].category)
@@ -115,9 +115,21 @@ def create_spend_chart(listOfCategories):
   
   for i in range(100,-1,-10):
     if(len(str(i))<3):
-      percent += appening(' ', 3-len(str(i))) + str(i) + '|' + '\n'
-    else:
-      percent+= str(i) + '|' + '\n'
+        percent += appening(' ', 3-len(str(i))) + str(i) + '|' 
+        
+    else: percent+= str(i) + '|' 
+
+    for j in range(len(listOfCategories)):
+      if(t>10):
+        break
+      else:
+       percent+= ' ' + str(percentageGraph(listOfCategories[j])[t]) + ' '
+     # print(str(percentageGraph(listOfCategories[j])[t]),'MAMAMAMAMAMAMAMAMA')
+    t=t+1
+    #if(t>9):
+
+    percent+= "\n"
+    
  # print(name[x][y])
  # print(biggestlength)
   #print(len(listOfCategories)
@@ -141,16 +153,44 @@ def create_spend_chart(listOfCategories):
       y=y+1
       cater+= '\n'
       x=0
-      print(listOfCategories[0].ledger[0]['amount'] -listOfCategories[0].get_balance(),'lolololol')
-  print(len(cater))
-  print(percent + cater)
-  print(percent)
+      
+  return percent + cater
+  #print(percent + cater)
+
+
 def appening(char1,size):
   text = ''
 
   for i in range(size):
     text+=char1
   return text
+
+def percentageGraph(category):
+  #category=listOfCategories[0]
+  graph=[]
+  percent1=(math.ceil((category.ledger[0]['amount'] -category.get_balance())/category.ledger[0]['amount']*100))
+  percentadd = int([y for y in str(percent1)][0])
+
+ 
+  if(len(str(percent1))==1 and percent1<5):
+    percent1=0
+  elif(len(str(percent1))==1 and percent1>4):
+    percent1=10
+  elif(int([y for y in str(percent1)][1])<5):
+    percent1 = percent1 - 10
+    percent1 = percent1 + (percentadd)*(10)-percent1
+  
+  else:
+     percent1 = percent1 + 10
+     percent1 = percent1 + (percentadd)*(10)-(percent1-10)
+
+  for i in range(11):
+    if(i>=(10)-percent1/10):
+      graph.append('o')
+    else:
+      graph.append(' ')
+    
+  return graph
 
 #def create_spend_chart(categories):
 
