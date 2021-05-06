@@ -68,13 +68,8 @@ class Category:
         bottomline=  appening(' ', len(topline)-len(str(self.ledger[x]['amount']))-1) + str(self.ledger[x]['amount'])
         
         length1=len(appening(' ', len(topline)-len(str(self.ledger[x]['amount']))-1))
-        #print(bottomline[26],'asfasfsf')
       for i in range(length1-1):
-        #print(self.ledger[x]['description'][i])
-       # print(bottomline[i],'232323')
-        #print(i)
-        #print(len(appening(' ', len(topline)-len(str(self.ledger[x]['amount']))-1)))
-        
+        #print(self.ledger[x]['description'][i])     
         #print(self.ledger[x]['description'][1])
         #print(type(bottomline))
         #print(type(self.ledger[x]['description'][1]))
@@ -82,17 +77,14 @@ class Category:
           bottomline = list(bottomline)
           bottomline[i]=self.ledger[x]['description'][i]
             
-            #print(self.ledger[x]['description'][i])
-          #print(bottomline[i],'poooooooooooooooooooooooooooop')
         except:
             break;
          
        # bottomline.replace(appening(' ', len(topline)-len(str(self.ledger[x]['amount']))-1), str(self.ledger[x]['description']))
        # print(''.join(bottomline),'test')
       bottomline1+=''.join(bottomline)
-      #print(bottomline1,'lol')
+
       bottomline1+="\n"
-    #print(bottomline, 'lololol')
    
     if(len(str(self.get_balance()).split('.')[1])==1):
       return topline+ bottomline1  + "Total: " + str(self.get_balance()) + '0'
@@ -125,7 +117,7 @@ def create_spend_chart(listOfCategories):
         break
       else:
        percent+= ' ' + str(percentageGraph(listOfCategories[j],total(listOfCategories))[t]) + ' '
-     # print(str(percentageGraph(listOfCategories[j])[t]),'MAMAMAMAMAMAMAMAMA')
+
     
     t=t+1
     #if(t>9):
@@ -168,7 +160,7 @@ def create_spend_chart(listOfCategories):
   #print(total(listOfCategories),'lolollol')
   return title + percent + cater
   #print(percent + cater)
-#print(mainTotal,'XXXDDDDDDDDDDDDDDDDDD')
+
 def total(list1):
   total=0
   for i in range(len(list1)):
@@ -191,7 +183,7 @@ def percentageGraph(category,total):
  # print(total1)
   percent1=(math.ceil((category.ledger[0]['amount'] -category.get_balance())/total*100))
   percentadd = int([y for y in str(percent1)][0]) 
-  #print(mainTotal,'POOOOOOOOOOOOOOP')
+
   
   if(len(str(percent1))==1 and percent1<5):
     percent1=0
