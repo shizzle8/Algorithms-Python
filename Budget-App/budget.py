@@ -123,7 +123,7 @@ def create_spend_chart(listOfCategories):
       if(t>10):
         break
       else:
-       percent+= ' ' + str(percentageGraph(listOfCategories[j])[t]) + ' '
+       percent+= ' ' + str(percentageGraph(listOfCategories[j],total(listOfCategories))[t]) + ' '
      # print(str(percentageGraph(listOfCategories[j])[t]),'MAMAMAMAMAMAMAMAMA')
     t=t+1
     #if(t>9):
@@ -146,16 +146,32 @@ def create_spend_chart(listOfCategories):
       else:
         cater+= name[x][y] + ' '
     except:
-      cater+= '      '
+      if(x==0):
+        cater+= '    ' + ' ' + ' '
+      elif(x== len(listOfCategories)-1):
+        cater+= ' '
+      else:
+        cater+= ' ' + ' '
     x=x+1
     if(x>=len(listOfCategories)):
       #print('lol')
       y=y+1
       cater+= '\n'
       x=0
-      
+    #global total1
+    #total1 = total(listOfCategories)
+  
+  #print(total(listOfCategories),'lolollol')
   return percent + cater
   #print(percent + cater)
+#print(mainTotal,'XXXDDDDDDDDDDDDDDDDDD')
+def total(list1):
+  total=0
+  for i in range(len(list1)):
+    for j in range(len(list1[i].ledger)):
+      if(list1[i].ledger[j]['amount']<0):
+        total+= list1[i].ledger[j]['amount']
+  return (total*-1)
 
 
 def appening(char1,size):
@@ -165,12 +181,13 @@ def appening(char1,size):
     text+=char1
   return text
 
-def percentageGraph(category):
+def percentageGraph(category,total):
   #category=listOfCategories[0]
   graph=[]
-  percent1=(math.ceil((category.ledger[0]['amount'] -category.get_balance())/category.ledger[0]['amount']*100))
-  percentadd = int([y for y in str(percent1)][0])
-
+ # print(total1)
+  percent1=(math.ceil((category.ledger[0]['amount'] -category.get_balance())/total*100))
+  percentadd = int([y for y in str(percent1)][0]) 
+  #print(mainTotal,'POOOOOOOOOOOOOOP')
  
   if(len(str(percent1))==1 and percent1<5):
     percent1=0
