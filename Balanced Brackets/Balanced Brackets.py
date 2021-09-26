@@ -1,5 +1,16 @@
 import os
 
+
+#Allows multiple array input
+def multiChecker(array):
+    output=[]
+
+    for i in array:
+        print(check(i))
+
+    
+
+
 #Parameter 'a' takes in a string
 def check(a):
 
@@ -8,7 +19,7 @@ def check(a):
 
     #Checks if odd number characters and returns NO since it will not be balanced
     if(len(a)%2!=0):
-        return print('NO')
+        return 'No'
 
     else:
         for i in range(len(a)):
@@ -23,7 +34,7 @@ def check(a):
                         continue
                     else:
                         
-                        return print("NO")
+                        return 'No'
 
                 #Second Algorith checks whether there is a nested braces balance by splitting the string in half and comparing them    
                 elif(store[a[:(int(len(a)/2))][i]]==a[int(len(a)/2):][len(a[int(len(a)/2):])-1-i]):
@@ -31,14 +42,17 @@ def check(a):
                     continue
         
                 else:
-                    return print('NO');
+                    return 'No';
                 
             except IndexError:
                 pass
                 
         #Finally return YES when it has passed all the checks of the algorithm
-        return print ('YES')
+        return 'Yes'
 
 
 
-check('{[()]}')
+#check('{[()]}')
+
+#This should output No Yes
+multiChecker(['{}{]','[{{([])}}]'])
