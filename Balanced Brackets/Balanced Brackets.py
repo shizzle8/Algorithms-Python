@@ -46,6 +46,9 @@ def check(a):
                 
             except IndexError:
                 pass
+            #When a key error is found we know that its corresponding braces is wrong thus we return a No
+            except KeyError:
+                return 'No'
                 
         #Finally return YES when it has passed all the checks of the algorithm
         return 'Yes'
@@ -55,4 +58,4 @@ def check(a):
 #check('{[()]}')
 
 #This should output No Yes
-multiChecker(['{}{]','[{{([])}}]'])
+multiChecker(['{[()]}','{[(])}','{{[[(())]]}}'])
